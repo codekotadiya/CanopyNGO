@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Canopy Commons — Rooting Travis County</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Serif+Display:ital@0;1&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest:   #1B3A2D;
+      --moss:     #2E5C42;
+      --fern:     #4A7C5C;
+      --cream:    #F5EDD8;
+      --parchment:#EDE0C4;
+      --terra:    #C4612A;
+      --gold:     #D4A537;
+      --bark:     #3C2415;
+      --ink:      #1A1208;
+      --mist:     #B8CFC0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(27,58,45,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(212,165,55,0.2);
+      transition: all .3s;
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: .02em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Jost', sans-serif;
+      font-size: .8rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mist);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta {
+      background: var(--terra);
+      color: #fff !important;
+      padding: .5rem 1.2rem;
+      border-radius: 2px;
+    }
+    .nav-cta:hover { background: #d4743a; color: #fff !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--forest);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* SVG tree silhouette background */
+    .hero-bg {
+      position: absolute; inset: 0;
+      opacity: .07;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Ccircle cx='200' cy='200' r='180' fill='%23ffffff' opacity='.3'/%3E%3C/svg%3E");
+    }
+
+    /* Organic grain overlay */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: .5;
+    }
+
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 6rem 5rem;
+      position: relative; z-index: 2;
+    }
+
+    .hero-eyebrow {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+      animation: fadeUp .8s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 6vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.0;
+      color: var(--cream);
+      margin-bottom: 1.8rem;
+      animation: fadeUp .8s .15s ease both;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--mist);
+      max-width: 38ch;
+      margin-bottom: 3rem;
+      animation: fadeUp .8s .3s ease both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp .8s .45s ease both;
+    }
+
+    .btn-primary {
+      background: var(--terra);
+      color: #fff;
+      padding: .9rem 2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background .2s, transform .2s;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: #d4743a; transform: translateY(-2px); }
+
+    .btn-outline {
+      border: 1.5px solid rgba(245,237,216,.35);
+      color: var(--cream);
+      padding: .9rem 2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: border-color .2s, background .2s;
+      display: inline-block;
+    }
+    .btn-outline:hover { border-color: var(--gold); background: rgba(212,165,55,.08); }
+
+    /* Hero illustration panel */
+    .hero-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+      padding: 6rem 3rem;
+      animation: fadeIn 1.2s .2s ease both;
+    }
+
+    .tree-illustration {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    /* Floating stat cards */
+    .stat-float {
+      position: absolute;
+      background: rgba(245,237,216,.1);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(245,237,216,.15);
+      border-radius: 4px;
+      padding: 1rem 1.4rem;
+      animation: float 6s ease-in-out infinite;
+    }
+    .stat-float:nth-child(2) { top: 22%; right: 8%; animation-delay: 0s; }
+    .stat-float:nth-child(3) { bottom: 28%; right: 12%; animation-delay: 2s; }
+    .stat-float:nth-child(4) { bottom: 18%; left: 8%; animation-delay: 4s; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .7rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-top: .2rem;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .5rem;
+      color: var(--mist);
+      font-size: .68rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      z-index: 3;
+      animation: fadeUp 1s .8s ease both;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ─── MARQUEE STRIP ─── */
+    .marquee-strip {
+      background: var(--terra);
+      padding: .7rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .marquee-inner {
+      display: inline-block;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-item {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.9);
+      padding: 0 2.5rem;
+    }
+    .marquee-dot {
+      color: rgba(255,255,255,.4);
+      margin: 0 .5rem;
+    }
+
+    /* ─── SECTION COMMONS ─── */
+    section { padding: 7rem 5rem; }
+
+    .section-label {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--forest);
+    }
+
+    /* ─── MISSION ─── */
+    .mission {
+      background: var(--parchment);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .mission-text .section-title { margin-bottom: 1.5rem; }
+
+    .mission-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #3a3228;
+      margin-bottom: 1.5rem;
+    }
+
+    .mission-pull {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--moss);
+      border-left: 3px solid var(--gold);
+      padding-left: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .mission-visual {
+      position: relative;
+    }
+
+    .mission-img-box {
+      background: var(--forest);
+      border-radius: 4px;
+      height: 440px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .mission-img-box svg {
+      width: 80%;
+      height: auto;
+      opacity: .85;
+    }
+
+    .mission-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      background: var(--terra);
+      color: #fff;
+      padding: 1.5rem;
+      border-radius: 4px;
+      font-family: 'Playfair Display', serif;
+    }
+    .mission-badge-num {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .mission-badge-text {
+      font-size: .78rem;
+      font-style: italic;
+      opacity: .9;
+    }
+
+    /* ─── WHAT WE DO ─── */
+    .what {
+      background: var(--forest);
+      color: var(--cream);
+    }
+    .what .section-label { color: var(--gold); }
+    .what .section-title { color: var(--cream); margin-bottom: 3.5rem; }
+
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+
+    .what-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      padding: 2.5rem;
+      transition: background .3s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .what-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .4s ease;
+    }
+    .what-card:hover::before { transform: scaleX(1); }
+    .what-card:hover { background: rgba(255,255,255,.07); }
+
+    .what-icon {
+      width: 48px; height: 48px;
+      margin-bottom: 1.5rem;
+      color: var(--gold);
+    }
+
+    .what-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 1rem;
+    }
+
+    .what-card p {
+      font-size: .95rem;
+      line-height: 1.75;
+      color: var(--mist);
+    }
+
+    /* ─── IMPACT ─── */
+    .impact {
+      background: var(--cream);
+      text-align: center;
+    }
+    .impact .section-title { margin-bottom: .8rem; }
+    .impact-sub {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #5a4e3e;
+      max-width: 55ch;
+      margin: 0 auto 4rem;
+    }
+
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .impact-item {
+      padding: 2rem 1rem;
+      border: 1px solid var(--parchment);
+      border-radius: 4px;
+      background: #fff;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .impact-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(27,58,45,.12);
+    }
+
+    .impact-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--forest);
+      line-height: 1;
+      margin-bottom: .4rem;
+    }
+    .impact-num span { color: var(--terra); }
+
+    .impact-desc {
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #7a6d5e;
+    }
+
+    /* ─── HOW TO JOIN ─── */
+    .join {
+      background: var(--parchment);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .join .section-title { margin-bottom: 2rem; }
+
+    .join-steps { list-style: none; }
+
+    .join-step {
+      display: flex;
+      gap: 1.5rem;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(27,58,45,.1);
+    }
+    .join-step:last-child { border-bottom: none; }
+
+    .step-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--gold);
+      min-width: 2rem;
+      line-height: 1;
+      padding-top: .1rem;
+    }
+
+    .step-content h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--forest);
+      margin-bottom: .4rem;
+    }
+
+    .step-content p {
+      font-size: .9rem;
+      line-height: 1.7;
+      color: #5a4e3e;
+    }
+
+    .join-form-panel {
+      background: var(--forest);
+      border-radius: 4px;
+      padding: 3rem;
+      color: var(--cream);
+    }
+
+    .join-form-panel h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+
+    .join-form-panel p {
+      font-size: .9rem;
+      line-height: 1.7;
+      color: var(--mist);
+      margin-bottom: 2rem;
+    }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-group label {
+      display: block;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: .5rem;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 2px;
+      padding: .75rem 1rem;
+      font-family: 'Jost', sans-serif;
+      font-size: .9rem;
+      color: var(--cream);
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(184,207,192,.4); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group select option { background: var(--forest); color: var(--cream); }
+
+    .form-submit {
+      width: 100%;
+      background: var(--terra);
+      color: #fff;
+      border: none;
+      padding: .9rem;
+      font-family: 'Jost', sans-serif;
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background .2s;
+      margin-top: .5rem;
+    }
+    .form-submit:hover { background: #d4743a; }
+
+    /* ─── PARTNERS ─── */
+    .partners {
+      background: var(--forest);
+      text-align: center;
+      padding: 4rem 5rem;
+    }
+    .partners-label {
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: 2.5rem;
+    }
+    .partners-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3.5rem;
+      flex-wrap: wrap;
+    }
+    .partner-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: .95rem;
+      font-weight: 700;
+      color: rgba(184,207,192,.4);
+      letter-spacing: .05em;
+      transition: color .2s;
+      white-space: nowrap;
+    }
+    .partner-logo:hover { color: var(--mist); }
+
+    /* ─── CTA BAND ─── */
+    .cta-band {
+      background: var(--terra);
+      padding: 5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .cta-band h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .cta-band h2 em { font-style: italic; }
+
+    .cta-band-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-white {
+      background: #fff;
+      color: var(--terra);
+      padding: .9rem 2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: transform .2s, box-shadow .2s;
+      display: inline-block;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.15); }
+
+    .btn-ghost-white {
+      border: 1.5px solid rgba(255,255,255,.5);
+      color: #fff;
+      padding: .9rem 2rem;
+      font-family: 'Jost', sans-serif;
+      font-size: .85rem;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: border-color .2s, background .2s;
+      display: inline-block;
+    }
+    .btn-ghost-white:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bark);
+      padding: 4rem 5rem 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+
+    .footer-brand .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .footer-brand .logo span { color: var(--gold); }
+
+    .footer-brand p {
+      font-size: .88rem;
+      line-height: 1.75;
+      color: rgba(184,207,192,.6);
+      max-width: 28ch;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-social { display: flex; gap: 1rem; }
+    .social-btn {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 2px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--mist);
+      text-decoration: none;
+      font-size: .8rem;
+      transition: border-color .2s, color .2s;
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    .footer-col h4 {
+      font-family: 'Jost', sans-serif;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--mist);
+      margin-bottom: 1.2rem;
+    }
+
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: .6rem; }
+    .footer-col ul li a {
+      font-size: .88rem;
+      color: rgba(184,207,192,.5);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-col ul li a:hover { color: var(--cream); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding-top: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: .78rem;
+      color: rgba(184,207,192,.35);
+    }
+
+    .footer-tax {
+      font-size: .72rem;
+      color: rgba(184,207,192,.3);
+      letter-spacing: .05em;
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-10px); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .4; }
+      50%       { opacity: 1; }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 5rem 2rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-text { padding: 7rem 2rem 3rem; }
+      .hero-visual { display: none; }
+      .mission, .join { grid-template-columns: 1fr; gap: 2.5rem; }
+      .what-grid { grid-template-columns: 1fr; }
+      .impact-grid { grid-template-columns: repeat(2, 1fr); }
+      .cta-band { grid-template-columns: 1fr; padding: 3rem 2rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 3rem 2rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Canopy <span>Commons</span></div>
+    <ul class="nav-links">
+      <li><a href="#mission">Mission</a></li>
+      <li><a href="#what">Programs</a></li>
+      <li><a href="#impact">Impact</a></li>
+      <li><a href="#join">Get Involved</a></li>
+      <li><a href="#join" class="nav-cta">Donate</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-text">
+      <p class="hero-eyebrow">Travis County, Texas · Est. 2025</p>
+      <h1 class="hero-title">
+        Growing a<br/><em>greener</em><br/>Travis County
+      </h1>
+      <p class="hero-sub">
+        Canopy Commons is a nonprofit dedicated to planting native trees on public land across Travis County — building shade, biodiversity, and community for generations to come.
+      </p>
+      <div class="hero-actions">
+        <a href="#join" class="btn-primary">Plant With Us</a>
+        <a href="#mission" class="btn-outline">Our Mission</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <!-- Floating stat cards -->
+      <div class="stat-float">
+        <div class="stat-num">500+</div>
+        <div class="stat-label">Trees Planned Year 1</div>
+      </div>
+      <div class="stat-float">
+        <div class="stat-num">36K</div>
+        <div class="stat-label">Acres of Public Land</div>
+      </div>
+      <div class="stat-float">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Native Species</div>
+      </div>
+
+      <!-- SVG Tree Illustration -->
+      <svg class="tree-illustration" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Trunk -->
+        <rect x="138" y="260" width="24" height="100" rx="4" fill="#4A7C5C" opacity=".6"/>
+        <rect x="144" y="280" width="12" height="80" rx="2" fill="#2E5C42" opacity=".4"/>
+        <!-- Roots -->
+        <path d="M138 355 Q110 370 90 380" stroke="#4A7C5C" stroke-width="4" stroke-linecap="round" opacity=".4"/>
+        <path d="M162 355 Q185 372 205 382" stroke="#4A7C5C" stroke-width="4" stroke-linecap="round" opacity=".4"/>
+        <path d="M150 360 Q150 382 148 395" stroke="#4A7C5C" stroke-width="3" stroke-linecap="round" opacity=".3"/>
+        <!-- Canopy layers -->
+        <ellipse cx="150" cy="200" rx="95" ry="85" fill="#2E5C42" opacity=".7"/>
+        <ellipse cx="150" cy="175" rx="80" ry="72" fill="#3A6B4E" opacity=".8"/>
+        <ellipse cx="150" cy="155" rx="65" ry="58" fill="#4A7C5C" opacity=".85"/>
+        <ellipse cx="150" cy="135" rx="50" ry="46" fill="#5A8D6C" opacity=".9"/>
+        <ellipse cx="150" cy="118" rx="38" ry="34" fill="#6B9E7D" opacity=".9"/>
+        <!-- Highlight -->
+        <ellipse cx="135" cy="110" rx="18" ry="14" fill="#B8D4BC" opacity=".15"/>
+        <!-- Small accent circles (leaves) -->
+        <circle cx="90" cy="185" r="14" fill="#4A7C5C" opacity=".5"/>
+        <circle cx="210" cy="190" r="12" fill="#3A6B4E" opacity=".5"/>
+        <circle cx="75" cy="215" r="9" fill="#2E5C42" opacity=".4"/>
+        <circle cx="225" cy="220" r="10" fill="#2E5C42" opacity=".4"/>
+        <!-- Stars / fireflies -->
+        <circle cx="60" cy="130" r="2" fill="#D4A537" opacity=".6"/>
+        <circle cx="240" cy="150" r="1.5" fill="#D4A537" opacity=".5"/>
+        <circle cx="55" cy="250" r="1.5" fill="#D4A537" opacity=".4"/>
+        <circle cx="245" cy="270" r="2" fill="#D4A537" opacity=".5"/>
+        <!-- Ground line -->
+        <ellipse cx="150" cy="360" rx="120" ry="8" fill="#2E5C42" opacity=".2"/>
+      </svg>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <span class="marquee-item">Native Trees <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Public Land Stewardship <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Travis County <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Community Canopy <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Urban Reforestation <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Climate Resilience <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Volunteer Driven <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Native Trees <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Public Land Stewardship <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Travis County <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Community Canopy <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Urban Reforestation <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Climate Resilience <span class="marquee-dot">◆</span></span>
+      <span class="marquee-item">Volunteer Driven <span class="marquee-dot">◆</span></span>
+    </div>
+  </div>
+
+  <!-- MISSION -->
+  <section class="mission" id="mission">
+    <div class="mission-text reveal">
+      <p class="section-label">Who We Are</p>
+      <h2 class="section-title">Rooted in place.<br/>Growing together.</h2>
+      <p class="mission-body">
+        Canopy Commons is a Travis County nonprofit on a mission to bring native trees to every available acre of public land — from neighborhood parks and creek corridors to school campuses and highway medians.
+      </p>
+      <blockquote class="mission-pull">
+        "Every tree we plant is a promise to future Austinites — shade, clean air, and a living piece of Texas."
+      </blockquote>
+      <p class="mission-body">
+        We work closely with Travis County Parks, the City of Austin Urban Forestry program, and community volunteers to identify, plant, and steward native species suited to Central Texas soils and climate.
+      </p>
+      <a href="#what" class="btn-primary" style="margin-top:1rem;">Our Programs</a>
+    </div>
+
+    <div class="mission-visual reveal">
+      <div class="mission-img-box">
+        <!-- Landscape SVG -->
+        <svg viewBox="0 0 360 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Sky -->
+          <rect width="360" height="280" fill="#1B3A2D"/>
+          <!-- Moon -->
+          <circle cx="300" cy="50" r="28" fill="#D4A537" opacity=".2"/>
+          <circle cx="308" cy="44" r="22" fill="#1B3A2D"/>
+          <!-- Stars -->
+          <circle cx="40" cy="40" r="1.5" fill="#D4A537" opacity=".7"/>
+          <circle cx="80" cy="25" r="1" fill="#D4A537" opacity=".5"/>
+          <circle cx="130" cy="50" r="1.5" fill="#D4A537" opacity=".6"/>
+          <circle cx="200" cy="30" r="1" fill="#D4A537" opacity=".4"/>
+          <circle cx="250" cy="60" r="1.5" fill="#D4A537" opacity=".6"/>
+          <!-- Hill -->
+          <ellipse cx="180" cy="260" rx="240" ry="80" fill="#2E5C42"/>
+          <!-- Big live oak left -->
+          <rect x="58" y="155" width="14" height="70" rx="3" fill="#3A6B4E"/>
+          <ellipse cx="65" cy="150" rx="42" ry="38" fill="#2E5C42"/>
+          <ellipse cx="65" cy="140" rx="32" ry="28" fill="#3A6B4E"/>
+          <ellipse cx="58" cy="132" rx="18" ry="16" fill="#4A7C5C"/>
+          <!-- Medium tree center -->
+          <rect x="173" y="175" width="10" height="55" rx="2" fill="#3A6B4E"/>
+          <ellipse cx="178" cy="168" rx="30" ry="26" fill="#2E5C42"/>
+          <ellipse cx="178" cy="158" rx="22" ry="20" fill="#3A6B4E"/>
+          <ellipse cx="175" cy="150" rx="14" ry="12" fill="#4A7C5C"/>
+          <!-- Small sapling right -->
+          <rect x="268" y="200" width="6" height="35" rx="2" fill="#3A6B4E" opacity=".8"/>
+          <ellipse cx="271" cy="196" rx="16" ry="14" fill="#2E5C42" opacity=".8"/>
+          <ellipse cx="271" cy="188" rx="10" ry="10" fill="#3A6B4E" opacity=".9"/>
+          <!-- Ground detail -->
+          <ellipse cx="65" cy="224" rx="50" ry="6" fill="#1B3A2D" opacity=".3"/>
+          <ellipse cx="178" cy="228" rx="36" ry="4" fill="#1B3A2D" opacity=".3"/>
+          <!-- Fireflies -->
+          <circle cx="110" cy="180" r="2" fill="#D4A537" opacity=".7"/>
+          <circle cx="145" cy="160" r="1.5" fill="#D4A537" opacity=".5"/>
+          <circle cx="230" cy="175" r="2" fill="#D4A537" opacity=".6"/>
+          <!-- Ground line -->
+          <rect x="0" y="240" width="360" height="40" fill="#1B3A2D" opacity=".5"/>
+        </svg>
+        <div class="mission-badge">
+          <div class="mission-badge-num">Travis<br/>County</div>
+          <div class="mission-badge-text">our home ground</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section class="what" id="what">
+    <p class="section-label reveal">Our Programs</p>
+    <h2 class="section-title reveal">How we're building<br/>the canopy</h2>
+
+    <div class="what-grid" style="margin-top:3.5rem;">
+
+      <div class="what-card reveal">
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 8 L24 40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M24 18 Q16 14 14 8 Q22 8 24 18Z" fill="currentColor" opacity=".5"/>
+          <path d="M24 26 Q34 20 36 12 Q26 14 24 26Z" fill="currentColor" opacity=".7"/>
+          <path d="M24 32 Q15 28 12 22 Q21 22 24 32Z" fill="currentColor" opacity=".5"/>
+        </svg>
+        <h3>Public Land Planting</h3>
+        <p>We partner with Travis County Parks, Austin Parks & Recreation, and AISD to identify suitable sites and plant native trees on public land — parks, greenbelts, creek banks, and school grounds.</p>
+      </div>
+
+      <div class="what-card reveal">
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="20" r="10" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M12 40 Q12 30 24 30 Q36 30 36 40" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M4 40 Q4 34 10 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+          <path d="M44 40 Q44 34 38 32" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+        </svg>
+        <h3>Community Volunteer Events</h3>
+        <p>Monthly planting days bring together neighbors, students, and businesses to dig in — literally. No experience needed. We provide tools, trees, training, and the satisfaction of leaving something lasting.</p>
+      </div>
+
+      <div class="what-card reveal">
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="20" width="32" height="20" rx="3" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M16 20 V14 Q16 8 24 8 Q32 8 32 14 V20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M20 32 L22 34 L28 28" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Stewardship & Care</h3>
+        <p>Planting is just the start. Our stewardship crews return to mulch, water, and monitor every tree we plant — ensuring survival through Austin's brutal summers and drought cycles.</p>
+      </div>
+
+      <div class="what-card reveal">
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M24 8 V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24 38 V40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M8 24 H10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M38 24 H40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="24" r="5" fill="currentColor" opacity=".5"/>
+        </svg>
+        <h3>Native Species Focus</h3>
+        <p>Every tree we plant is native to Central Texas — live oak, cedar elm, Texas redbud, bald cypress, and more. Native trees support pollinators, wildlife, and withstand local climate extremes with minimal irrigation.</p>
+      </div>
+
+      <div class="what-card reveal">
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10 36 L24 12 L38 36" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 28 H32" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+          <circle cx="24" cy="12" r="4" fill="currentColor" opacity=".4"/>
+        </svg>
+        <h3>Equity-First Siting</h3>
+        <p>We prioritize neighborhoods with the least tree canopy — often lower-income communities in East and Southeast Austin — to fight the urban heat island effect where it hits hardest.</p>
+      </div>
+
+      <div class="what-card reveal">
+        <svg class="what-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="8" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2.5"/>
+          <rect x="26" y="8" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2.5"/>
+          <rect x="8" y="26" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2.5"/>
+          <rect x="26" y="26" width="14" height="14" rx="2" stroke="currentColor" stroke-width="2.5"/>
+        </svg>
+        <h3>Education & Advocacy</h3>
+        <p>From school workshops on Central Texas ecology to testifying for stronger urban forestry policy, we build the knowledge and political will to keep Travis County's canopy growing for decades.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- IMPACT -->
+  <section class="impact" id="impact">
+    <p class="section-label reveal">Our Impact</p>
+    <h2 class="section-title reveal">Small roots,<br/>big ambitions</h2>
+    <p class="impact-sub reveal">We're just getting started — but here's what we're working toward in our first five years of operation.</p>
+
+    <div class="impact-grid reveal">
+      <div class="impact-item">
+        <div class="impact-num">2<span>K</span></div>
+        <div class="impact-desc">Trees Planted by 2027</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">50<span>+</span></div>
+        <div class="impact-desc">Public Sites Activated</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">500<span>+</span></div>
+        <div class="impact-desc">Volunteer Hours/Year</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">10<span>+</span></div>
+        <div class="impact-desc">Native Species Planted</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN -->
+  <section class="join" id="join">
+    <div class="join-left reveal">
+      <p class="section-label">Get Involved</p>
+      <h2 class="section-title">Ready to put down roots?</h2>
+
+      <ul class="join-steps" style="margin-top:2rem;">
+        <li class="join-step">
+          <span class="step-num">01</span>
+          <div class="step-content">
+            <h4>Sign Up to Volunteer</h4>
+            <p>Join one of our monthly planting events. No experience required — just wear closed-toed shoes and bring water.</p>
+          </div>
+        </li>
+        <li class="join-step">
+          <span class="step-num">02</span>
+          <div class="step-content">
+            <h4>Donate to the Canopy Fund</h4>
+            <p>Every $25 funds one native tree, planted and cared for on public land in Travis County. 100% goes to program costs.</p>
+          </div>
+        </li>
+        <li class="join-step">
+          <span class="step-num">03</span>
+          <div class="step-content">
+            <h4>Nominate a Site</h4>
+            <p>Know a sunny patch of park, a bare schoolyard, or a stripped creek bank? Nominate it and we'll assess it for planting.</p>
+          </div>
+        </li>
+        <li class="join-step">
+          <span class="step-num">04</span>
+          <div class="step-content">
+            <h4>Partner With Us</h4>
+            <p>Businesses, schools, HOAs, and government agencies — reach out about corporate planting days, sponsorships, and site agreements.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="join-form-panel reveal">
+      <h3>Stay Connected</h3>
+      <p>Sign up for our newsletter and be first to know about volunteer events, planting updates, and ways to help.</p>
+
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" placeholder="Jane Smith" />
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="jane@example.com" />
+      </div>
+      <div class="form-group">
+        <label>I'm interested in…</label>
+        <select>
+          <option value="">Select an option</option>
+          <option>Volunteering at planting events</option>
+          <option>Donating to the Canopy Fund</option>
+          <option>Nominating a planting site</option>
+          <option>Corporate / organizational partnership</option>
+          <option>Everything — keep me posted!</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Zip Code (optional)</label>
+        <input type="text" placeholder="78701" />
+      </div>
+      <button class="form-submit" onclick="handleSubmit(event)">Join the Canopy →</button>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <div class="partners">
+    <p class="partners-label">Partnering with</p>
+    <div class="partners-row">
+      <span class="partner-logo">Travis County Parks</span>
+      <span class="partner-logo">City of Austin Urban Forestry</span>
+      <span class="partner-logo">TreeFolks</span>
+      <span class="partner-logo">Austin ISD</span>
+      <span class="partner-logo">Texas A&M AgriLife</span>
+      <span class="partner-logo">Arbor Day Foundation</span>
+    </div>
+  </div>
+
+  <!-- CTA BAND -->
+  <div class="cta-band">
+    <div>
+      <h2>Every tree you plant<br/><em>outlives all of us.</em></h2>
+    </div>
+    <div class="cta-band-actions">
+      <a href="#join" class="btn-white">Donate a Tree</a>
+      <a href="#join" class="btn-ghost-white">Volunteer Now</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <span class="logo">Canopy <span>Commons</span></span>
+        <p>A Travis County nonprofit planting native trees on public land — for the community, by the community.</p>
+        <div class="footer-social">
+          <a href="#" class="social-btn">𝕏</a>
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">ig</a>
+          <a href="#" class="social-btn">fb</a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Organization</h4>
+        <ul>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Team</a></li>
+          <li><a href="#">Annual Report</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="#">Public Land Planting</a></li>
+          <li><a href="#">Volunteer Events</a></li>
+          <li><a href="#">Stewardship</a></li>
+          <li><a href="#">Education</a></li>
+          <li><a href="#">Nominate a Site</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Donate</a></li>
+          <li><a href="#">Corporate Partners</a></li>
+          <li><a href="#">Grants & Funding</a></li>
+          <li><a href="#">Volunteer Sign-Up</a></li>
+          <li><a href="#">Gift Trees</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2025 Canopy Commons. Austin, Texas. All rights reserved.</p>
+      <span class="footer-tax">501(c)(3) Nonprofit · EIN: XX-XXXXXXX · Privacy Policy</span>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Nav background on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.background = window.scrollY > 60
+        ? 'rgba(27,58,45,0.98)'
+        : 'rgba(27,58,45,0.92)';
+    });
+
+    // Form submission
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target;
+      btn.textContent = '✓ You\'re in the canopy!';
+      btn.style.background = '#2E5C42';
+      btn.disabled = true;
+    }
+  </script>
+</body>
+</html>
