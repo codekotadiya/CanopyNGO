@@ -1,0 +1,11 @@
+{
+  "name": "canopy-ngo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/launchpad-handoff.test.js"
+  },
+  "dependencies": {
+    "@vercel/functions": "3.9.11"
+  }
+}
